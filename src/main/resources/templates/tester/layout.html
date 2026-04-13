@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<div th:fragment="navbar">
+    <nav class="navbar navbar-dark px-4">
+        <span class="navbar-brand fw-bold">
+            🐞 Bug Tracking System - Tester
+        </span>
+
+        <div class="ms-auto">
+            <span class="me-3 text-white">
+                Welcome,
+                <span th:text="${loggedInUser.name}">Tester</span>
+            </span>
+
+            <a th:href="@{/logout}" class="btn btn-light btn-sm">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
+        </div>
+    </nav>
+</div>
+
+<!-- ================= SIDEBAR ================= -->
+<div th:fragment="sidebar">
+    <div class="sidebar">
+
+        <a th:href="@{/tester/dashboard}">
+            <i class="bi bi-speedometer2"></i> Dashboard
+        </a>
+
+        <a th:href="@{/tester/report-bug}">
+            <i class="bi bi-bug"></i> Report Bug
+        </a>
+
+        <a th:href="@{/tester/my-bugs}">
+            <i class="bi bi-list"></i> My Bugs
+        </a>
+
+    </div>
+</div>
+
+</body>
+</html>

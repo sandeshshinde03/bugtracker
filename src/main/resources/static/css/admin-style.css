@@ -1,0 +1,258 @@
+/* ================= ROOT VARIABLES ================= */
+
+:root{
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+    --bg-light:#eef2f7;
+    --bg-gradient:#e3e8f0;
+    --dark:#111827;
+    --sidebar:#1f2937;
+    --text-light:#d1d5db;
+}
+
+/* ================= GLOBAL ================= */
+
+body{
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(120deg,var(--bg-light),var(--bg-gradient));
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+    background:linear-gradient(90deg,#141e30,#243b55);
+    padding:12px 20px;
+    position:fixed;
+    top:0;
+    width:100%;
+    z-index:1000;
+}
+
+.navbar-brand{
+    font-weight:600;
+    font-size:18px;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    position:fixed;
+    top:56px;
+    left:0;
+    width:230px;
+    height:calc(100vh - 56px);
+    background:var(--sidebar);
+    padding-top:15px;
+    overflow-y:auto;
+    color:white;
+    transition:0.3s;
+}
+
+.sidebar h4{
+    font-weight:600;
+}
+
+.sidebar a{
+    color:var(--text-light);
+    text-decoration:none;
+    display:block;
+    padding:12px 18px;
+    margin:4px 10px;
+    border-radius:8px;
+    transition:0.3s;
+}
+
+.sidebar a i{
+    margin-right:8px;
+}
+
+.sidebar a:hover{
+    background:#374151;
+    color:white;
+    transform:translateX(5px);
+}
+
+.sidebar a.active{
+    background:#374151;
+    color:white;
+    font-weight:500;
+}
+
+/* ================= CONTENT ================= */
+
+.content{
+    margin-left:230px;
+    margin-top:70px;
+    padding:30px;
+}
+
+/* ================= BUTTON SYSTEM ================= */
+
+.btn-main{
+    background:var(--primary);
+    border:none;
+    border-radius:8px;
+    color:white;
+    transition: all 0.25s ease;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.btn-main:hover{
+    background:var(--primary-dark);
+    transform:translateY(-2px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+.btn-main:active{
+    transform:translateY(0px);
+    box-shadow:0 3px 8px rgba(0,0,0,0.15);
+}
+
+/* ================= CARDS ================= */
+
+.card, .form-card, .bug-card{
+    border:none;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px) scale(1.01);
+    box-shadow:0 15px 35px rgba(0,0,0,0.2);
+}
+
+/* Glass Effect */
+.card{
+    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.7);
+}
+
+/* ================= METRIC CARDS ================= */
+
+.card-metric{
+    color:white;
+    padding:15px;
+}
+
+.card-metric i{
+    position:absolute;
+    right:20px;
+    bottom:15px;
+    opacity:0.3;
+}
+
+.bg-bugs{ background:linear-gradient(135deg,#4facfe,#00f2fe);}
+.bg-open{ background:linear-gradient(135deg,#f7971e,#ffd200);}
+.bg-resolved{ background:linear-gradient(135deg,#11998e,#38ef7d);}
+.bg-critical{ background:linear-gradient(135deg,#ff416c,#ff4b2b);}
+
+/* ================= FORM ================= */
+
+.form-header{
+    background:var(--dark);
+    color:white;
+    padding:15px;
+    border-radius:15px 15px 0 0;
+    text-align:center;
+}
+
+.form-control{
+    border-radius:8px;
+}
+
+/* ================= TABLE ================= */
+
+.table{
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.table thead{
+    background:var(--dark);
+    color:white;
+}
+
+.table tbody tr{
+    transition:0.2s;
+}
+
+.table tbody tr:hover{
+    background:#e0e7ff;
+    transform:scale(1.01);
+    cursor:pointer;
+}
+
+/* ================= BADGES ================= */
+
+.badge{
+    padding:6px 10px;
+}
+
+/* Priority */
+.priority-critical{ background:#dc2626; }
+.priority-high{ background:#ea580c; }
+.priority-medium{ background:#ca8a04; }
+.priority-low{ background:#16a34a; }
+
+/* Status */
+.status-open{ background:#ef4444; }
+.status-progress{ background:#3b82f6; }
+.status-resolved{ background:#22c55e; }
+
+/* ================= DETAILS ================= */
+
+.detail-row{
+    padding:10px 0;
+    border-bottom:1px solid #e5e7eb;
+}
+
+.detail-title{
+    font-weight:600;
+    color:#374151;
+}
+
+.comment-box{
+    background:#f8fafc;
+    padding:10px;
+    border-radius:10px;
+}
+
+/* ================= SCROLLBAR ================= */
+
+::-webkit-scrollbar{
+    width:6px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#6b7280;
+    border-radius:10px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:768px){
+
+.sidebar{
+    left:-230px;
+}
+
+.sidebar.active{
+    left:0;
+}
+
+.content{
+    margin-left:0;
+}
+
+}
+
+/* ================= ANIMATIONS ================= */
+
+button, .btn{
+    transition: all 0.2s ease;
+}
+
+.btn:hover{
+    transform:scale(1.01);
+}

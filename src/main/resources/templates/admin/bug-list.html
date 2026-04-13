@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Bug Management</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<!-- Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- ADMIN CSS -->
+<link th:href="@{/css/admin-style.css}" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark">
+    <div class="container-fluid">
+
+        <span class="navbar-brand">
+            🐞 Bug Tracking System - Admin
+        </span>
+
+        <a th:href="@{/logout}" class="btn btn-outline-light btn-sm">
+            <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+
+    </div>
+</nav>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+    <h4 class="text-center mt-2">Admin Panel</h4>
+    <hr>
+
+    <a th:href="@{/admin/dashboard}"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a th:href="@{/admin/users}"><i class="bi bi-people"></i> Manage Users</a>
+    <a th:href="@{/admin/projects}"><i class="bi bi-kanban"></i> Projects</a>
+    <a th:href="@{/admin/bugs}"><i class="bi bi-bug"></i> All Bugs</a>
+    <a th:href="@{/admin/assign}"><i class="bi bi-person-check"></i> Assign Bugs</a>
+    <a th:href="@{/admin/reports}"><i class="bi bi-bar-chart"></i> Reports</a>
+
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+<h2 class="mb-4 fw-semibold">
+<i class="bi bi-bug"></i> Bug Management
+</h2>
+
+<div class="card shadow">
+<div class="card-body">
+
+<table class="table table-hover table-bordered">
+
+<thead>
+<tr>
+<th>ID</th>
+<th>Title</th>
+<th>Project</th>
+<th>Reporter</th>
+<th>Developer</th>
+<th>Priority</th>
+<th>Status</th>
+<th>Created</th>
+<th>Actions</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr th:each="bug : ${bugs}"
+    th:onclick="|window.location.href='/admin/bug/${bug.id}'|">
+
+<td th:text="${bug.id}"></td>
+
+<td th:text="${bug.title}"></td>
+
+<td th:text="${bug.project != null ? bug.project.name : 'No Project'}"></td>
+
+<td th:text="${bug.reporter != null ? bug.reporter.name : 'Unknown'}"></td>
+
+<td th:text="${bug.assignedDeveloper != null ? bug.assignedDeveloper.name : 'Unassigned'}"></td>
+
+<!-- PRIORITY -->
+<td>
+<span class="badge priority-critical" th:if="${bug.priority == 'CRITICAL'}" th:text="${bug.priority}"></span>
+<span class="badge priority-high" th:if="${bug.priority == 'HIGH'}" th:text="${bug.priority}"></span>
+<span class="badge priority-medium" th:if="${bug.priority == 'MEDIUM'}" th:text="${bug.priority}"></span>
+<span class="badge priority-low" th:if="${bug.priority == 'LOW'}" th:text="${bug.priority}"></span>
+</td>
+
+<!-- STATUS -->
+<td>
+<span class="badge status-open" th:if="${bug.status == 'OPEN'}" th:text="${bug.status}"></span>
+<span class="badge status-progress" th:if="${bug.status == 'IN_PROGRESS'}" th:text="${bug.status}"></span>
+<span class="badge status-resolved" th:if="${bug.status == 'RESOLVED'}" th:text="${bug.status}"></span>
+<span class="badge bg-secondary" th:if="${bug.status == 'CLOSED'}" th:text="${bug.status}"></span>
+</td>
+
+<td th:text="${bug.createdDate != null ? #temporals.format(bug.createdDate,'yyyy-MM-dd HH:mm') : 'N/A'}"></td>
+
+<!-- ACTION BUTTONS -->
+<td onclick="event.stopPropagation();">
+
+<a th:href="@{/admin/bugs/edit/{id}(id=${bug.id})}"
+   class="btn btn-sm btn-warning">
+<i class="bi bi-pencil"></i>
+</a>
+
+<a th:href="@{/admin/bugs/delete/{id}(id=${bug.id})}"
+   class="btn btn-sm btn-danger">
+<i class="bi bi-trash"></i>
+</a>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+</div>
+
+</div>
+
+</body>
+</html>

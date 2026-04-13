@@ -1,0 +1,296 @@
+/* ================= ROOT VARIABLES ================= */
+
+:root{
+    --bg-main:#020617;
+    --bg-card:rgba(15,23,42,0.6);
+    --bg-card-strong:rgba(15,23,42,0.8);
+
+    --primary:#4f46e5;
+    --primary-light:#6366f1;
+
+    --text-main:#e2e8f0;
+    --text-muted:#94a3b8;
+    --text-white:#ffffff;
+
+    --border-light:rgba(255,255,255,0.08);
+}
+
+/* ================= GLOBAL ================= */
+
+*{
+    transition:all 0.2s ease-in-out;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background: radial-gradient(circle at top,#0f172a,var(--bg-main));
+    color:var(--text-main);
+    margin:0;
+    padding:0;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar{
+    background:linear-gradient(90deg,#1e1b4b,#312e81,var(--primary));
+    padding:14px 25px;
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    z-index:1000;
+    border-bottom:1px solid var(--border-light);
+}
+
+.navbar-brand{
+    font-weight:600;
+    font-size:18px;
+    color:#e0e7ff;
+}
+
+/* ================= SIDEBAR ================= */
+
+.sidebar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:230px;
+    height:100vh;
+    background:rgba(15,23,42,0.8);
+    backdrop-filter:blur(12px);
+    border-right:1px solid var(--border-light);
+    padding-top:80px;
+    z-index:999;
+}
+
+.sidebar a{
+    display:block;
+    padding:12px 18px;
+    margin:8px 12px;
+    color:var(--text-muted);
+    text-decoration:none;
+    border-radius:10px;
+}
+
+.sidebar a:hover,
+.sidebar a.active{
+    background:linear-gradient(90deg,var(--primary),var(--primary-light));
+    color:white;
+    transform:translateX(6px);
+    box-shadow:0 0 12px rgba(99,102,241,0.5);
+}
+
+/* ================= CONTENT ================= */
+
+.content{
+    margin-left:230px;
+    margin-top:90px;
+    padding:30px;
+}
+
+/* ================= CARDS ================= */
+
+.card{
+    background:var(--bg-card);
+     background-color: #1e293b;   /* dark background */
+    color: #f1f5f9;         
+    backdrop-filter:blur(12px);
+    border-radius:15px;
+    border:1px solid var(--border-light);
+    box-shadow:0 8px 30px rgba(0,0,0,0.3);
+}
+
+.card p,
+.card span,
+.card b,
+.card h3,
+.card h5 {
+    color: #f1f5f9;
+}
+
+.card-header{
+    background:transparent !important;
+    color:var(--text-main) !important;
+    border-bottom:1px solid var(--border-light);
+    font-size:16px;
+}
+
+/* ================= DASHBOARD CARDS ================= */
+
+.dashboard-card{
+    border-radius:18px;
+    padding:25px;
+    color:white;
+    position:relative;
+    overflow:hidden;
+    border:1px solid var(--border-light);
+}
+
+.dashboard-card:hover{
+    transform:translateY(-6px) scale(1.02);
+    box-shadow:0 15px 40px rgba(0,0,0,0.4);
+}
+
+.dashboard-card i{
+    position:absolute;
+    right:20px;
+    bottom:10px;
+    font-size:40px;
+    opacity:0.2;
+}
+
+.card-assigned{
+    background:linear-gradient(135deg,#60a5fa,var(--primary));
+}
+
+.card-progress{
+    background:linear-gradient(135deg,#fbbf24,#f97316);
+}
+
+.card-resolved{
+    background:linear-gradient(135deg,#34d399,#10b981);
+}
+
+/* ================= TABLE ================= */
+
+.table{
+    color:var(--text-main) !important;
+    background:transparent !important;
+    margin-bottom:0;
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.table thead{
+    background:rgba(30,41,59,0.9) !important;
+    color:#cbd5f5;
+}
+
+.table th{
+    border:none !important;
+    padding:14px;
+    font-weight:500;
+}
+
+.table td{
+    background:transparent !important;
+    border-top:1px solid rgba(255,255,255,0.05) !important;
+    padding:14px;
+    vertical-align:middle;
+
+    max-width:250px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.table-hover tbody tr:hover{
+    background:rgba(99,102,241,0.15) !important;
+    transform:scale(1.01);
+}
+
+/* Highlight important columns */
+.table tbody tr td:nth-child(1),
+.table tbody tr td:nth-child(2),
+.table tbody tr td:nth-child(3){
+    color:var(--text-white) !important;
+    font-weight:500;
+}
+
+/* ================= BADGES ================= */
+
+.badge{
+    border-radius:999px;
+    padding:6px 12px;
+    font-size:11px;
+    font-weight:500;
+    letter-spacing:0.3px;
+}
+
+.priority-critical{ background:#7c3aed; }
+.priority-high{ background:#ef4444; }
+.priority-medium{ background:#f59e0b; }
+.priority-low{ background:#22c55e; }
+
+/* STATUS */
+.bg-warning{ background:#facc15 !important; color:black !important; }
+.bg-primary{ background:#3b82f6 !important; }
+.bg-success{ background:#10b981 !important; }
+
+/* ================= BUTTON SYSTEM ================= */
+
+.btn-glow{
+    background:linear-gradient(90deg,var(--primary),var(--primary-light));
+    color:white;
+    border:none;
+    border-radius:8px;
+    padding:6px 12px;
+}
+
+.btn-glow:hover{
+    transform:translateY(-2px);
+    box-shadow:0 5px 15px rgba(99,102,241,0.5);
+    color:white;
+}
+
+.btn-outline-glow{
+    border:1px solid var(--primary-light);
+    color:var(--primary-light);
+    background:transparent;
+}
+
+.btn-outline-glow:hover{
+    background:var(--primary-light);
+    color:white;
+}
+
+/* ================= FORM DARK THEME ================= */
+
+.form-label{
+    color:var(--text-main) !important;
+}
+
+.form-control,
+.form-select{
+    background:var(--bg-card) !important;
+    color:white !important;
+    border:1px solid var(--border-light) !important;
+}
+
+.form-control::placeholder{
+    color:var(--text-muted) !important;
+}
+
+.form-select option{
+    background:var(--bg-main);
+    color:white;
+}
+
+.form-control:focus,
+.form-select:focus{
+    background:var(--bg-card-strong) !important;
+    color:white !important;
+    border-color:var(--primary-light) !important;
+    box-shadow:0 0 10px rgba(99,102,241,0.5);
+}
+
+/* ================= TEXT FIX ================= */
+
+.card p{
+    color:var(--text-main);
+}
+
+.card h5{
+    color:white;
+}
+
+/* ================= SCROLLBAR ================= */
+
+::-webkit-scrollbar{
+    width:6px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:var(--primary);
+    border-radius:10px;
+}

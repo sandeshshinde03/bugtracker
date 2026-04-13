@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<title>Edit Bug</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- ADMIN CSS -->
+<link th:href="@{/css/admin-style.css}" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-dark">
+
+<div class="container-fluid">
+
+<span class="navbar-brand">
+🐞 Bug Tracking System - Admin
+</span>
+
+<a href="/logout" class="btn btn-outline-light btn-sm">
+<i class="bi bi-box-arrow-right"></i> Logout
+</a>
+
+</div>
+
+</nav>
+
+
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<h4 class="text-center mt-2">Admin Panel</h4>
+<hr>
+
+    <a th:href="@{/admin/dashboard}"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a th:href="@{/admin/users}"><i class="bi bi-people"></i> Manage Users</a>
+    <a th:href="@{/admin/projects}"><i class="bi bi-kanban"></i> Projects</a>
+    <a th:href="@{/admin/bugs}"><i class="bi bi-bug"></i> All Bugs</a>
+    <a th:href="@{/admin/assign}"><i class="bi bi-person-check"></i> Assign Bugs</a>
+    <a th:href="@{/admin/reports}"><i class="bi bi-bar-chart"></i> Reports</a>
+
+</div>
+
+
+
+<!-- MAIN CONTENT -->
+
+<div class="content">
+
+<h2 class="mb-4 fw-semibold">
+<i class="bi bi-pencil-square"></i> Edit Bug
+</h2>
+
+
+<div class="card form-card">
+
+<div class="form-header">
+Update Bug Information
+</div>
+
+<div class="card-body">
+
+<form th:action="@{/admin/bugs/update}" method="post" th:object="${bug}">
+
+<input type="hidden" th:field="*{id}">
+
+<!-- BUG ID -->
+
+<div class="mb-3">
+<label class="form-label">Bug ID</label>
+<input type="text" class="form-control" th:value="${bug.id}" readonly>
+</div>
+
+<!-- TITLE (EDITABLE) -->
+
+<div class="mb-3">
+<label class="form-label">Title</label>
+<input type="text" class="form-control" th:field="*{title}">
+</div>
+
+<!-- PROJECT (EDITABLE) -->
+
+<div class="mb-3">
+<label class="form-label">Project</label>
+
+<select class="form-control" name="projectId">
+
+<option value="">Select Project</option>
+
+<option th:each="project : ${projects}"
+        th:value="${project.id}"
+        th:text="${project.name}"
+        th:selected="${bug.project != null and project.id == bug.project.id}">
+</option>
+
+</select>
+
+</div>
+
+<!-- REPORTER (READ ONLY) -->
+
+<div class="mb-3">
+<label class="form-label">Reporter</label>
+<input type="text"
+       class="form-control"
+       th:value="${bug.reporter != null ? bug.reporter.name : 'Unknown'}"
+       readonly>
+</div>
+
+<!-- ASSIGNED DEVELOPER (EDITABLE) -->
+
+<div class="mb-3">
+
+<label class="form-label">Developer</label>
+
+<select class="form-control" name="developerId">
+
+<option value="">Unassigned</option>
+
+<option th:each="dev : ${developers}"
+        th:value="${dev.id}"
+        th:text="${dev.name}"
+        th:selected="${bug.assignedDeveloper != null and dev.id == bug.assignedDeveloper.id}">
+</option>
+
+</select>
+
+</div>
+
+<!-- PRIORITY (EDITABLE) -->
+
+<div class="mb-3">
+
+<label class="form-label">Priority</label>
+
+<select class="form-control" th:field="*{priority}">
+
+<option value="LOW">LOW</option>
+<option value="MEDIUM">MEDIUM</option>
+<option value="HIGH">HIGH</option>
+<option value="CRITICAL">CRITICAL</option>
+
+</select>
+
+</div>
+
+<!-- STATUS (READ ONLY) -->
+
+<div class="mb-3">
+
+<label class="form-label">Status</label>
+
+<input type="text"
+       class="form-control"
+       th:value="${bug.status}"
+       readonly>
+
+</div>
+
+<!-- CREATED DATE (READ ONLY) -->
+
+<div class="mb-4">
+
+<label class="form-label">Created Date</label>
+
+<input type="text"
+       class="form-control"
+       th:value="${#temporals.format(bug.createdDate,'yyyy-MM-dd HH:mm')}"
+       readonly>
+
+</div>
+
+<div class="d-grid gap-2">
+
+<button class="btn btn-main">
+<i class="bi bi-check-circle"></i> Update Bug
+</button>
+
+<a th:href="@{/admin/bugs}" class="btn btn-secondary">
+Cancel
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

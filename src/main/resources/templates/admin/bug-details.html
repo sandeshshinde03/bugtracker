@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<title>Bug Details</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- ADMIN CSS -->
+<link th:href="@{/css/admin-style.css}" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark">
+<div class="container-fluid">
+
+<span class="navbar-brand">
+🐞 Bug Tracking System - Admin
+</span>
+
+<a th:href="@{/logout}" class="btn btn-outline-light btn-sm">
+<i class="bi bi-box-arrow-right"></i> Logout
+</a>
+
+</div>
+</nav>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+
+<h4 class="text-center mt-2">Admin Panel</h4>
+<hr>
+
+    <a th:href="@{/admin/dashboard}"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a th:href="@{/admin/users}"><i class="bi bi-people"></i> Manage Users</a>
+    <a th:href="@{/admin/projects}"><i class="bi bi-kanban"></i> Projects</a>
+    <a th:href="@{/admin/bugs}"><i class="bi bi-bug"></i> All Bugs</a>
+    <a th:href="@{/admin/assign}"><i class="bi bi-person-check"></i> Assign Bugs</a>
+    <a th:href="@{/admin/reports}"><i class="bi bi-bar-chart"></i> Reports</a>
+
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="content">
+
+<h2 class="mb-4 fw-semibold">
+<i class="bi bi-eye"></i> Bug Details
+</h2>
+
+<!-- BUG DETAILS CARD -->
+<div class="card shadow p-4 mb-4">
+
+<div class="detail-row">
+<span class="detail-title">ID :</span>
+<span th:text="${bug.id}"></span>
+</div>
+
+<div class="detail-row">
+<span class="detail-title">Title :</span>
+<span th:text="${bug.title}"></span>
+</div>
+
+<div class="detail-row">
+<span class="detail-title">Description :</span>
+<span th:text="${bug.description}"></span>
+</div>
+
+<div class="detail-row">
+<span class="detail-title">Project :</span>
+<span th:text="${bug.project != null ? bug.project.name : 'No Project'}"></span>
+</div>
+
+<div class="detail-row">
+<span class="detail-title">Reporter :</span>
+<span th:text="${bug.reporter != null ? bug.reporter.name : 'Unknown'}"></span>
+</div>
+
+<div class="detail-row">
+<span class="detail-title">Developer :</span>
+<span th:text="${bug.assignedDeveloper != null ? bug.assignedDeveloper.name : 'Unassigned'}"></span>
+</div>
+
+<div class="detail-row">
+<span class="detail-title">Priority :</span>
+<span th:text="${bug.priority}"></span>
+</div>
+
+<div class="detail-row">
+<span class="detail-title">Status :</span>
+<span th:text="${bug.status}"></span>
+</div>
+
+<div class="detail-row">
+<span class="detail-title">Created :</span>
+<span th:text="${#temporals.format(bug.createdDate,'yyyy-MM-dd HH:mm')}"></span>
+</div>
+
+<div class="mt-3">
+<a th:href="@{/admin/bugs}" class="btn btn-secondary">
+<i class="bi bi-arrow-left"></i> Back
+</a>
+</div>
+
+</div>
+
+<!-- COMMENTS SECTION -->
+<div class="card shadow p-4">
+
+<h5 class="mb-3">Comments</h5>
+
+<!-- No comments -->
+<div th:if="${#lists.isEmpty(comments)}" class="text-muted">
+No comments yet 💬
+</div>
+
+<!-- Comments list -->
+<div th:each="c : ${comments}" class="comment-box mb-2">
+<b th:text="${c.user != null ? c.user.name : 'User'}"></b>
+<small class="text-muted ms-2"
+       th:text="${#temporals.format(c.createdDate,'dd MMM yyyy HH:mm')}"></small>
+<div th:text="${c.message}"></div>
+</div>
+
+<!-- Add comment -->
+<form th:action="@{'/admin/bug/' + ${bug.id} + '/comment'}" method="post" class="mt-3">
+<div class="input-group">
+<input type="text" name="message" class="form-control" placeholder="Add a comment..." required>
+<button class="btn btn-primary">
+<i class="bi bi-send"></i>
+</button>
+</div>
+</form>
+
+</div>
+
+</div>
+
+</body>
+</html>

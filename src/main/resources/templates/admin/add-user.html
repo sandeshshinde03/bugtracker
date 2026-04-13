@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Add User</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- ADMIN CSS -->
+<link th:href="@{/css/admin-style.css}" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-dark">
+    <div class="container-fluid">
+
+        <span class="navbar-brand">
+            🐞 Bug Tracking System - Admin
+        </span>
+
+        <a th:href="@{/logout}" class="btn btn-outline-light btn-sm">
+            <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+
+    </div>
+</nav>
+
+
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+    <h4 class="text-center mt-2">Admin Panel</h4>
+    <hr>
+
+    <a th:href="@{/admin/dashboard}"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a th:href="@{/admin/users}"><i class="bi bi-people"></i> Manage Users</a>
+    <a th:href="@{/admin/projects}"><i class="bi bi-kanban"></i> Projects</a>
+    <a th:href="@{/admin/bugs}"><i class="bi bi-bug"></i> All Bugs</a>
+    <a th:href="@{/admin/assign}"><i class="bi bi-person-check"></i> Assign Bugs</a>
+    <a th:href="@{/admin/reports}"><i class="bi bi-bar-chart"></i> Reports</a>
+
+</div>
+
+
+
+<!-- MAIN CONTENT -->
+
+<div class="content">
+
+<h2 class="mb-4 fw-semibold">
+<i class="bi bi-person-plus"></i> Add New User
+</h2>
+
+
+<div class="card form-card">
+
+<div class="form-header">
+User Registration
+</div>
+
+<div class="card-body">
+<div th:if="${error}" class="alert alert-danger">
+        <span th:text="${error}"></span>
+    </div>
+
+<form th:action="@{/admin/add-user}" method="post">
+
+<div class="mb-3">
+<label class="form-label">Full Name</label>
+<input type="text" name="name" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Email</label>
+<input type="email" name="email" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label class="form-label">Password</label>
+<input type="password" name="password" class="form-control" required>
+</div>
+
+<div class="mb-4">
+<label class="form-label">Role</label>
+
+<select name="role" class="form-control">
+
+<option value="ROLE_DEVELOPER">Developer</option>
+
+<option value="ROLE_TESTER">Tester</option>
+
+<option value="ROLE_ADMIN">Admin</option>
+
+</select>
+
+</div>
+
+<div class="d-grid mb-3">
+
+<button type="submit" class="btn btn-main">
+
+<i class="bi bi-person-check"></i> Add User
+
+</button>
+
+</div>
+
+<div class="text-center">
+
+<a th:href="@{/admin/dashboard}" class="back-link">
+
+<i class="bi bi-arrow-left"></i> Back to Dashboard
+
+</a>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+
+</body>
+</html>

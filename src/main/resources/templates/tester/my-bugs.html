@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>My Bugs</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- ✅ COMMON DARK THEME CSS -->
+    <link th:href="@{/css/tester-style.css}" rel="stylesheet">
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<th:block th:replace="~{tester/layout :: navbar}"></th:block>
+
+<!-- SIDEBAR -->
+<th:block th:replace="~{tester/layout :: sidebar}"></th:block>
+
+<!-- MAIN CONTENT -->
+<div class="content">
+
+    <div class="card">
+
+        <!-- HEADER -->
+        <div class="card-header">
+            <h5 class="mb-0">My Reported Bugs</h5>
+        </div>
+
+        <!-- TABLE -->
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle">
+
+                <thead>
+                    <tr class="text-uppercase small">
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Project</th>
+                        <th>Status</th>
+                        <th>Priority</th>
+                        <th>Assigned</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <!-- EMPTY STATE -->
+                    <tr th:if="${#lists.isEmpty(bugs)}">
+                        <td colspan="7" class="text-center text-muted">
+                            <h6>No bugs found 🐞</h6>
+                            <a th:href="@{/tester/report-bug}" class="btn btn-glow mt-2">
+                                Report First Bug
+                            </a>
+                        </td>
+                    </tr>
+
+                    <!-- BUG ROW -->
+                    <tr th:each="bug : ${bugs}"
+                        th:onclick="'window.location.href=\'/tester/bug/' + ${bug.id} + '\''"
+                        style="cursor:pointer;">
+
+                        <td th:text="${bug.id}"></td>
+
+                        <td th:text="${bug.title}"></td>
+
+                        <td th:text="${bug.project != null ? bug.project.name : 'No Project'}"></td>
+
+                        <!-- STATUS -->
+                        <td>
+                            <span th:if="${bug.status == 'OPEN'}" class="badge bg-warning">Open</span>
+                            <span th:if="${bug.status == 'IN_PROGRESS'}" class="badge bg-primary">In Progress</span>
+                            <span th:if="${bug.status == 'RESOLVED'}" class="badge bg-success">Resolved</span>
+                            <span th:if="${bug.status == 'CLOSED'}" class="badge bg-success">Closed</span>
+                        </td>
+
+                        <!-- PRIORITY -->
+                        <td>
+                            <span th:if="${bug.priority == 'CRITICAL'}" class="badge priority-critical">CRITICAL</span>
+                            <span th:if="${bug.priority == 'HIGH'}" class="badge priority-high">HIGH</span>
+                            <span th:if="${bug.priority == 'MEDIUM'}" class="badge priority-medium">MEDIUM</span>
+                            <span th:if="${bug.priority == 'LOW'}" class="badge priority-low">LOW</span>
+                        </td>
+
+                        <!-- ASSIGNED -->
+                        <td th:text="${bug.assignedDeveloper != null ? bug.assignedDeveloper.name : 'Unassigned'}"></td>
+
+                        <!-- CREATED DATE -->
+                        <td th:text="${#temporals.format(bug.createdDate, 'dd MMM yyyy HH:mm')}"></td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

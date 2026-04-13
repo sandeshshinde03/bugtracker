@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Manage Projects</title>
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<!-- ADMIN CSS -->
+<link th:href="@{/css/admin-style.css}" rel="stylesheet">
+
+</head>
+
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar navbar-dark">
+<div class="container-fluid">
+
+<span class="navbar-brand">
+🐞 Bug Tracking System - Admin
+</span>
+
+<a th:href="@{/logout}" class="btn btn-outline-light btn-sm">
+<i class="bi bi-box-arrow-right"></i> Logout
+</a>
+
+</div>
+</nav>
+
+
+
+<!-- SIDEBAR -->
+
+<div class="sidebar">
+
+<h4 class="text-center mt-2">Admin Panel</h4>
+<hr>
+
+    <a th:href="@{/admin/dashboard}"><i class="bi bi-speedometer2"></i> Dashboard</a>
+    <a th:href="@{/admin/users}"><i class="bi bi-people"></i> Manage Users</a>
+    <a th:href="@{/admin/projects}"><i class="bi bi-kanban"></i> Projects</a>
+    <a th:href="@{/admin/bugs}"><i class="bi bi-bug"></i> All Bugs</a>
+    <a th:href="@{/admin/assign}"><i class="bi bi-person-check"></i> Assign Bugs</a>
+    <a th:href="@{/admin/reports}"><i class="bi bi-bar-chart"></i> Reports</a>
+
+</div>
+
+
+
+<!-- MAIN CONTENT -->
+
+<div class="content">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+<h2 class="fw-semibold">
+<i class="bi bi-kanban"></i> Project Management
+</h2>
+
+<a th:href="@{/admin/projects/add}" class="btn btn-main">
+<i class="bi bi-plus-circle"></i> Add Project
+</a>
+
+</div>
+
+
+
+<div class="card shadow">
+
+<div class="card-body">
+
+<table class="table table-hover table-bordered">
+
+<thead>
+
+<tr>
+<th>ID</th>
+<th>Project Name</th>
+<th>Description</th>
+<th>Created Date</th>
+<th>Total Bugs</th>
+<th>Actions</th>
+</tr>
+
+</thead>
+
+
+<tbody>
+
+<tr th:each="project : ${projects}">
+
+<td th:text="${project.id}"></td>
+
+<td th:text="${project.name}"></td>
+
+<td th:text="${project.description}"></td>
+
+<td th:text="${#temporals.format(project.createdDate,'yyyy-MM-dd HH:mm')}"></td>
+
+<td th:text="${project.bugs.size()}"></td>
+
+<td>
+
+<a th:href="@{/admin/projects/edit/{id}(id=${project.id})}"
+class="btn btn-sm btn-warning">
+
+<i class="bi bi-pencil"></i>
+
+</a>
+
+<a th:href="@{/admin/projects/delete/{id}(id=${project.id})}"
+class="btn btn-sm btn-danger">
+
+<i class="bi bi-trash"></i>
+
+</a>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

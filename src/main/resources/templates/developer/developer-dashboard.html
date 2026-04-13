@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Developer Dashboard</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/developer-style.css}">
+</head>
+
+<body>
+
+<!-- ✅ NAVBAR -->
+<div th:replace="~{developer/developer-layout :: navbar}"></div>
+
+<!-- ✅ SIDEBAR -->
+<div th:replace="~{developer/developer-layout :: sidebar}"></div>
+
+<!-- ✅ CONTENT -->
+<div class="content">
+
+    <h3>Welcome <span th:text="${developerName}"></span> 👨‍💻</h3>
+
+    <!-- CARDS -->
+    <div class="row g-4 mt-2">
+
+        <div class="col-md-3">
+            <div class="dashboard-card card-assigned">
+                <h6>Total Assigned Bugs</h6>
+                <h2 th:text="${totalAssigned}">0</h2>
+                <i class="bi bi-bug"></i>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="dashboard-card card-progress">
+                <h6>Bugs In Progress</h6>
+                <h2 th:text="${inProgress}">0</h2>
+                <i class="bi bi-tools"></i>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="dashboard-card card-resolved">
+                <h6>Resolved Bugs</h6>
+                <h2 th:text="${resolved}">0</h2>
+                <i class="bi bi-check-circle"></i>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="dashboard-card" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">
+                <h6>Closed Bugs</h6>
+                <h2 th:text="${closed}">0</h2>
+                <i class="bi bi-lock"></i>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TABLE -->
+    <div class="card mt-5 shadow">
+
+        <div class="card-header">
+            Assigned Bugs
+        </div>
+
+        <div class="card-body">
+
+            <table class="table table-hover">
+
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                <tr th:each="bug : ${bugs}"
+                    th:onclick="'window.location.href=\'/developer/bug/' + ${bug.id} + '\''"
+                    style="cursor:pointer;">
+
+                    <td th:text="${bug.id}"></td>
+                    <td th:text="${bug.title}"></td>
+
+                    <td>
+                        <span th:if="${bug.priority=='CRITICAL'}" class="badge priority-critical">CRITICAL</span>
+                        <span th:if="${bug.priority=='HIGH'}" class="badge priority-high">HIGH</span>
+                        <span th:if="${bug.priority=='MEDIUM'}" class="badge priority-medium">MEDIUM</span>
+                        <span th:if="${bug.priority=='LOW'}" class="badge priority-low">LOW</span>
+                    </td>
+
+                    <td>
+                        <span class="badge bg-warning" th:if="${bug.status=='OPEN'}">OPEN</span>
+                        <span class="badge bg-primary" th:if="${bug.status=='IN_PROGRESS'}">IN_PROGRESS</span>
+                        <span class="badge bg-success" th:if="${bug.status=='RESOLVED'}">RESOLVED</span>
+                        <span class="badge priority-low" th:if="${bug.status=='CLOSED'}">CLOSED</span>
+                    </td>
+
+                    <td>
+                        <a th:href="@{'/developer/update-status/' + ${bug.id}}"
+                           class="btn btn-sm btn-outline-light"
+                           onclick="event.stopPropagation();">
+                            <i class="bi bi-pencil-square"></i> Update
+                        </a>
+                    </td>
+
+                </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

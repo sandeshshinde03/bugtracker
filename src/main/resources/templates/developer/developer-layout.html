@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<div th:fragment="navbar">
+    <nav class="navbar navbar-dark px-4">
+        <span class="navbar-brand fw-bold">
+            🐞 Bug Tracking System - Developer
+        </span>
+
+        <div class="ms-auto">
+            <a th:href="@{/logout}" class="btn btn-light btn-sm">
+                <i class="bi bi-box-arrow-right"></i> Logout
+            </a>
+        </div>
+    </nav>
+</div>
+
+<!-- ================= SIDEBAR ================= -->
+<div th:fragment="sidebar">
+    <div class="sidebar">
+        <a th:href="@{/developer/dashboard}">
+            <i class="bi bi-speedometer2"></i> Dashboard
+        </a>
+
+        <a th:href="@{/developer/assigned-bugs}">
+            <i class="bi bi-bug"></i> Assigned Bugs
+        </a>
+
+        <a th:href="@{/developer/in-progress}">
+            <i class="bi bi-tools"></i> In Progress
+        </a>
+
+        <a th:href="@{/developer/resolved}">
+            <i class="bi bi-check-circle"></i> Resolved Bugs
+        </a>
+    </div>
+</div>
+
+</body>
+</html>
